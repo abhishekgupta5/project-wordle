@@ -3,17 +3,23 @@ import { range } from '../../utils';
 import { checkGuess } from '../../game-helpers';
 
 function Guess({ guess, answer }) {
-  const results = guess ? checkGuess(guess, answer) : undefined;
+  const results = checkGuess(guess, answer);
+
+  // Sub-component to handle conditional cells
+  function Cell({ letter, status }) {
+    const className = status ? `cell ${status}` : 'cell';
+    return <span className={className}>{letter}</span>;
+  }
 
   return (
     <p className='guess'>
-      {results
-        ? results.map(({ letter, status }, index) => (
-            <span key={index} className={`cell ${status}`}>
-              {letter}
-            </span>
-          ))
-        : range(5).map((index) => <span key={index} className='cell'></span>)}
+      {range(5).map((index) => (
+        <Cell
+          key={index}
+          letter={results ? results[index].letter : undefined}
+          status={results ? results[index].status : undefined}
+        />
+      ))}
     </p>
   );
 }
