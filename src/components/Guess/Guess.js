@@ -5,8 +5,8 @@ function Guess({ guess }) {
   return (
     <p className='guess'>
       {range(5).map((letterIndex) => (
-        <span key={crypto.randomUUID()} className='cell'>
-          {typeof guess === 'undefined' ? false : guess[letterIndex]}
+        <span key={letterIndex} className='cell'>
+          {guess ? guess[letterIndex] : undefined}
         </span>
       ))}
     </p>
