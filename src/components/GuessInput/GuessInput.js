@@ -1,7 +1,11 @@
 import React from 'react';
 
-function GuessInput() {
-  const [guess, setGuess] = React.useState('');
+function GuessInput({ guess, setGuess, guessResults, setGuessResults }) {
+  function updateGuessResults() {
+    const newGuessResults = [...guessResults];
+    newGuessResults.push(guess);
+    setGuessResults(newGuessResults);
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -9,7 +13,7 @@ function GuessInput() {
       window.alert('Guess should be of 5 letters');
       return;
     }
-    console.log({ guess: guess });
+    updateGuessResults();
     setGuess('');
   }
 
